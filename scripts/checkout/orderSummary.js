@@ -5,7 +5,7 @@ import  dayjs  from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from "./paymentSummary.js";
 
-function renderOrderSummary() {
+export function renderOrderSummary() {
   let cartSummaryHTML = '';
 
   cart.forEach((cartItem) => {
@@ -42,14 +42,15 @@ function renderOrderSummary() {
             <div class="product-price">
               $${formatCurrency(matchingProduct.priceCents)}
             </div>
-            <div class="product-quantity">
+            <div class="product-quantity 
+            js-product-quantity-${matchingProduct.id}">
               <span>
                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
               </span>
               <span class="update-quantity-link link-primary">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary js-delete-link"
+              <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}"
               data-product-id="${matchingProduct.id}">
                 Delete
               </span>
@@ -125,5 +126,3 @@ function renderOrderSummary() {
     })
   });
 }
-
-renderOrderSummary();
