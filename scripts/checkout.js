@@ -5,13 +5,31 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
+async function loadPage() { //shortcut for Promise
+
+  await loadProductsFetch(); // only use when inside async function
+  //return 'value2';  returns promise
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  })
+
+  renderOrderSummary();
+  renderPaymentSummary();
+
+}
+
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
     loadCart(() => {
       resolve();
-  });
-})
+    });
+  })
 ]).then(() => {
   renderOrderSummary();
   renderPaymentSummary();
