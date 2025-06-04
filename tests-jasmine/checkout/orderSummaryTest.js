@@ -37,7 +37,7 @@ describe('test suite: renderOrderSummary', () => {
 
     renderOrderSummary();
 
-  });// this is hok in jasmine to share common code
+  });// this is hook in jasmine to share common code
 
   it('displays the cart', () => {
 
