@@ -1,20 +1,15 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
 Promise.all([
-new Promise((resolve) => {
-//it runs the inner function immediately
-  loadProducts(() => {
-    resolve();
-  });
-}),
-new Promise((resolve) => {
-  loadCart(() => {
-    resolve();
+  loadProductsFetch(),
+  new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
   });
 })
 ]).then(() => {
