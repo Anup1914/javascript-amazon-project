@@ -1,6 +1,7 @@
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
-import {cart, loadFromStorage} from '../../data/cart.js';
+import {cart, loadFromStorage, updateCartQuantity} from '../../data/cart.js';
 import { loadProducts,loadProductsFetch } from '../../data/products.js';
+import { updateCheckoutItems } from '../../scripts/checkout/checkoutHeader.js';
 
 
 describe('test suite: renderOrderSummary', () => {
@@ -34,9 +35,7 @@ describe('test suite: renderOrderSummary', () => {
     }]);
     }); // this is known as mock the local storage
     loadFromStorage();
-
     renderOrderSummary();
-
   });// this is hook in jasmine to share common code
 
   it('displays the cart', () => {

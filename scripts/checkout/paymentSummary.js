@@ -54,8 +54,7 @@ export function renderPaymentSummary() {
       Place your order
     </button>`;
 
-  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
-  document.querySelector('.js-checkout-items').innerHTML = updateCartQuantity() + ' items'; 
+  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML; 
   document.querySelector('.js-place-order')
   .addEventListener('click', async () => {
     try {
