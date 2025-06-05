@@ -57,7 +57,6 @@ export function removeFromCart(productId) {
   });
 
   cart = newCart;
-
   saveToStorage();
 }
 
@@ -79,10 +78,17 @@ export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
-    console.log(xhr.response);
     fun();
     });
 
   xhr.open('GET', 'https://supersimplebackend.dev/cart');
   xhr.send();
 }
+
+export function updateCartQuantity() {
+      let cartQuantity = 0;
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+      return cartQuantity;
+  }
