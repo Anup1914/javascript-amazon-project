@@ -2,8 +2,11 @@ import {cart, updateCartQuantity} from '../../data/cart.js' ;
 import { getProduct } from '../../data/products.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from "../utils/money.js"; 
-import { addOrder } from '../../data/order.js';
+import { addOrder } from '../../scripts/orders.js';
 import { loadPage } from '../checkout.js';
+import { renderOrderSummary } from './orderSummary.js';
+
+
 
 export function renderPaymentSummary() {
   let productPriceCents = 0;
@@ -53,10 +56,14 @@ export function renderPaymentSummary() {
 
     <button class="place-order-button button-primary js-place-order">
       Place your order
-    </button>`;
+    </button>`
+  ;
 
-  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+  if(document.querySelector('.js-payment-summary')){
+    document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+  }
 
+  if(document.querySelector('.js-place-order')){
   document.querySelector('.js-place-order')
   .addEventListener('click', async () => {
     try {
@@ -71,14 +78,13 @@ export function renderPaymentSummary() {
       });
     
       const order = await response.json();
+      console.log(order);
       addOrder(order);
-
     } catch(error) {
       console.log('Unexpected error.Try again later');
     }
-
     window.location.href = 'orders.html';
-
   });
+}
 }
 

@@ -1,6 +1,9 @@
 import { updateCartQuantity } from "../../data/cart.js";
+import { loadProductsFetch } from "../../data/products.js";
 
-export function updateCheckoutItems(){
+async function loadPage() {
+  await loadProductsFetch();
+
   let cartQuantity = updateCartQuantity();
   const checkoutItems = `
     <div class="header-content">
@@ -21,7 +24,8 @@ export function updateCheckoutItems(){
         </div>
       </div>
   `;
-
-  document.querySelector('.js-checkout-header').innerHTML = checkoutItems;
+  if(document.querySelector('.js-checkout-header')){
+    document.querySelector('.js-checkout-header').innerHTML = checkoutItems;
+  }
 }
-updateCheckoutItems();
+loadPage();

@@ -4,10 +4,8 @@ import { formatCurrency } from "../utils/money.js";
 import  dayjs  from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; //this is case of deault export
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from "./paymentSummary.js";
-import { updateCheckoutItems } from "./checkoutHeader.js";
 import { loadPage } from "../checkout.js";
-
-updateCheckoutItems();
+import * as checkOutHeader from './checkoutHeader.js';
 
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
@@ -112,7 +110,9 @@ export function renderOrderSummary() {
     return html;
   }
 
-  document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+  if(document.querySelector('.js-order-summary')){
+    document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+  }
 
   document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
@@ -123,7 +123,6 @@ export function renderOrderSummary() {
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
       updateCartQuantity();
-      updateCheckoutItems();
       renderPaymentSummary();
     });
   });
@@ -157,7 +156,6 @@ export function renderOrderSummary() {
       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
       quantityLabel.innerHTML = newQuantity;
       updateCartQuantity();
-      updateCheckoutItems();
       renderOrderSummary();
       renderPaymentSummary();
     });

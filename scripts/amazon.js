@@ -2,11 +2,11 @@ import {cart, addToCart, updateCartQuantity} from '../data/cart.js'; //use of mo
 import {products, loadProducts} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
+
 loadProducts(renderProductsGrid); // callback function
 
 function renderProductsGrid(){
   let productsHTML = '';
-
   products.forEach((product) => {
     productsHTML += `
           <div class="product-container">
