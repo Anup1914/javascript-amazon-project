@@ -3,7 +3,7 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart, updateCartQuantity } from "../data/cart.js";
 import { updateCheckoutItems } from "./checkout/checkoutHeader.js";
-//import '../data/cart-class.js';
+//import '../data/car.js';
 //import '../data/backend-practice.js';
 
 export async function loadPage() { //shortcut for Promise
