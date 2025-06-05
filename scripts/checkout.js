@@ -6,7 +6,7 @@ import { updateCheckoutItems } from "./checkout/checkoutHeader.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
-async function loadPage() { //shortcut for Promise
+export async function loadPage() { //shortcut for Promise
  
   try{ // cna be used to handle any unexpected when code is correct
      
