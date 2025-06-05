@@ -6,8 +6,11 @@ import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { updateCheckoutItems } from "./checkoutHeader.js";
 import { loadPage } from "../checkout.js";
+<<<<<<< HEAD
 
 updateCheckoutItems();
+=======
+>>>>>>> 4f30e86960d286d02aed01369122af865b1375b7
 
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
@@ -123,7 +126,11 @@ export function renderOrderSummary() {
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
       updateCartQuantity();
+<<<<<<< HEAD
       updateCheckoutItems();
+=======
+      loadPage();
+>>>>>>> 4f30e86960d286d02aed01369122af865b1375b7
       renderPaymentSummary();
     });
   });
