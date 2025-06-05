@@ -3,6 +3,7 @@ import { getProduct } from '../../data/products.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from "../utils/money.js"; 
 import { addOrder } from '../../data/order.js';
+import { loadPage } from '../checkout.js';
 
 export function renderPaymentSummary() {
   let productPriceCents = 0;
@@ -54,7 +55,8 @@ export function renderPaymentSummary() {
       Place your order
     </button>`;
 
-  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML; 
+  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+
   document.querySelector('.js-place-order')
   .addEventListener('click', async () => {
     try {

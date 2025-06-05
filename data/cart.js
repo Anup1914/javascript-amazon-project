@@ -90,6 +90,7 @@ export function updateCartQuantity() {
       cart.forEach((item) => {
         cartQuantity += item.quantity;
       });
+      
       return cartQuantity;
 }
 

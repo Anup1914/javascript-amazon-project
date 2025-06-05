@@ -25,11 +25,13 @@ export async function loadPage() { //shortcut for Promise
   } catch(error) {
     console.log('Unexpected error. Please try again later.')
   }
+  
+  updateCheckoutItems();
   renderOrderSummary();
   renderPaymentSummary();
-  updateCheckoutItems();
 }
 loadPage();
+
 
 /*
 Promise.all([

@@ -7,6 +7,8 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 import { updateCheckoutItems } from "./checkoutHeader.js";
 import { loadPage } from "../checkout.js";
 
+updateCheckoutItems();
+
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
 
@@ -121,7 +123,7 @@ export function renderOrderSummary() {
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
       updateCartQuantity();
-      loadPage();
+      updateCheckoutItems();
       renderPaymentSummary();
     });
   });
@@ -155,9 +157,9 @@ export function renderOrderSummary() {
       const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
       quantityLabel.innerHTML = newQuantity;
       updateCartQuantity();
+      updateCheckoutItems();
       renderOrderSummary();
       renderPaymentSummary();
-      updateCheckoutItems();
     });
   });
 

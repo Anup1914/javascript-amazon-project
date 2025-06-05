@@ -1,5 +1,5 @@
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
-import {cart, loadFromStorage, updateCartQuantity} from '../../data/cart.js';
+import {cart, loadFromStorage} from '../../data/cart.js';
 import { loadProducts,loadProductsFetch } from '../../data/products.js';
 import { updateCheckoutItems } from '../../scripts/checkout/checkoutHeader.js';
 
@@ -18,6 +18,7 @@ describe('test suite: renderOrderSummary', () => {
   beforeEach(()=>{
     spyOn(localStorage, 'setItem');
     document.querySelector('.js-test-container').innerHTML = `
+      <div class="js-checkout-header"></div>
       <div class="js-order-summary"></div>
       <div class="js-payment-summary"></div>
       `;
@@ -35,6 +36,7 @@ describe('test suite: renderOrderSummary', () => {
     }]);
     }); // this is known as mock the local storage
     loadFromStorage();
+    updateCheckoutItems();
     renderOrderSummary();
   });// this is hook in jasmine to share common code
 
@@ -42,7 +44,6 @@ describe('test suite: renderOrderSummary', () => {
 
     expect(document.querySelectorAll('.js-test-container').length	).toEqual(1);
     expect(document.querySelector(`.js-product-quantity-${productId1}`).innerText).toContain('Quantity: 1');
-
   });
 
   it('removes a product', () =>{
