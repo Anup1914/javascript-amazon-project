@@ -107,3 +107,8 @@ export function updateQuantity(productId, newQuantity){
   updateCartQuantity();
   saveToStorage();
 }
+
+export function resetCart() {
+  cart = [];
+  saveToStorage();
+}

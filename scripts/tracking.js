@@ -14,7 +14,11 @@ async function loadPage() {
   const product = getProduct(productId);
   const matchingProduct = getProductDetails(orderId,productId);
   const estimatedDeliveryTime = dayjs(matchingProduct.estimatedDeliveryTime).format('MMMM D');
-  const percentProgress = calculatePercentProgress(orderId,matchingProduct);
+
+  const progressTracker = calculateProgress(orderId,matchingProduct);
+  const percentProgress = progressTracker.percentProgress;
+  const deliveredMessage = progressTracker.deliveredMessage;
+
   const trackPackageHTML = `
     <div class="order-tracking">
       <a class="back-to-orders-link link-primary" href="orders.html">
@@ -22,7 +26,7 @@ async function loadPage() {
       </a>
 
       <div class="delivery-date">
-        ${estimatedDeliveryTime}
+        ${deliveredMessage} ${estimatedDeliveryTime}
       </div>
 
       <div class="product-info">
@@ -74,7 +78,7 @@ function getProductDetails(orderId, productId) {
   return matchingProduct;
 }
 
-function calculatePercentProgress(orderId,productDetails) {
+function calculateProgress(orderId,productDetails) {
   const today = dayjs();
   let Order = [];
   orders.forEach((order) => {
@@ -85,5 +89,7 @@ function calculatePercentProgress(orderId,productDetails) {
   const orderTime = dayjs(Order.orderTime);
   const deliveryTime = dayjs(productDetails.estimatedDeliveryTime);
   const percentProgress = ((today - orderTime) / (deliveryTime - orderTime))*100; 
-  return percentProgress;
+
+  const deliveredMessage = today < deliveryTime ? 'Arriving on' : 'Delivered on';
+  return {percentProgress: percentProgress,deliveredMessage: deliveredMessage};
 }
