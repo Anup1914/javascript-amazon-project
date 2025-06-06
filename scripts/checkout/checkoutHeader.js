@@ -5,6 +5,15 @@ async function loadPage() {
   await loadProductsFetch();
 
   let cartQuantity = updateCartQuantity();
+  const checkoutItems = createCheckoutHeaderHTML(cartQuantity);
+  
+  if(document.querySelector('.js-checkout-header')){
+    document.querySelector('.js-checkout-header').innerHTML = checkoutItems;
+  }
+}
+loadPage();
+
+export function createCheckoutHeaderHTML(cartQuantity) {
   const checkoutItems = `
     <div class="header-content">
         <div class="checkout-header-left-section">
@@ -24,8 +33,6 @@ async function loadPage() {
         </div>
       </div>
   `;
-  if(document.querySelector('.js-checkout-header')){
-    document.querySelector('.js-checkout-header').innerHTML = checkoutItems;
-  }
+
+  return checkoutItems;
 }
-loadPage();
