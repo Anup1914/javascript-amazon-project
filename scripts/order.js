@@ -101,8 +101,10 @@ async function loadPage() {
       button.innerHTML = 'Added';
       setTimeout(() => {
         button.innerHTML = `<img class="buy-again-icon" src="images/icons/buy-again.png">
-            <span class="buy-again-message">Buy it again</span>`;}, 1000);
-      })
+          <span class="buy-again-message">Buy it again</span>`;}
+        , 1000)
+      ;
+    })
     });
 }
 
