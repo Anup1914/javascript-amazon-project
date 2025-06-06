@@ -60,6 +60,12 @@ async function loadPage() {
 
   document.querySelector('.js-main').innerHTML = trackPackageHTML;
   document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
+
+  document.querySelector('.js-search-button').addEventListener('click', () => {
+    const inputKeyword = document.querySelector('.js-search-input').value;
+    window.location.href = `amazon.html?inputKeyword=${inputKeyword}`;
+  });
+  
 }
 
 loadPage();

@@ -105,7 +105,15 @@ async function loadPage() {
         , 1000)
       ;
     })
+  });
+
+  if(document.querySelector('.js-search-button')){
+    document.querySelector('.js-search-button').addEventListener('click', () => {
+      const inputKeyword = document.querySelector('.js-search-input').value;
+      window.location.href = `amazon.html?inputKeyword=${inputKeyword}`;
     });
+  } 
+  
 }
 
 loadPage();
