@@ -32,7 +32,7 @@ function renderProductsGrid(){
             </div>
 
             <div class="product-quantity-container">
-              <select>
+              <select class= "js-product-quantity-option-${product.id}">
                 <option selected value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -71,7 +71,9 @@ function renderProductsGrid(){
     let addedMessageTimeoutId;
     button.addEventListener('click', () =>{
       const productId = button.dataset.productId;
-      addToCart(productId);
+      const productQuantity = Number(document.querySelector(`.js-product-quantity-option-${productId}`).value);
+      console.log(productQuantity);
+      addToCart(productId, productQuantity);
 
       const addedMessage  = document.querySelector(`.js-added-to-cart-${productId}`);
       
