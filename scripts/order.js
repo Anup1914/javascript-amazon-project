@@ -1,26 +1,26 @@
-import {getProduct, loadProductsFetch} from '../data/products.js';
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { formatCurrency } from './utils/money.js';
-import { addToCart, updateCartQuantity } from '../data/cart.js';
+import { getProduct, loadProductsFetch } from "../data/products.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import { formatCurrency } from "./utils/money.js";
+import { addToCart, updateCartQuantity } from "../data/cart.js";
 //import { orders } from './orders.js';
 
-export const orders = JSON.parse(localStorage.getItem('orders')) || [];
+export const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-export function addOrder(order){
+export function addOrder(order) {
   orders.unshift(order);
   saveToStorage();
 }
 
-function saveToStorage(){
-  localStorage.setItem('orders', JSON.stringify(orders));
+function saveToStorage() {
+  localStorage.setItem("orders", JSON.stringify(orders));
 }
 
 async function loadPage() {
   await loadProductsFetch();
-
-  let ordersHTML = '';
+  console.log(orders);
+  let ordersHTML = "";
   orders.forEach((order) => {
-    const orderTimeString = dayjs(order.orderTime).format('MMMM D');
+    const orderTimeString = dayjs(order.orderTime).format("MMMM D");
 
     ordersHTML += `
       <div class="order-container">
@@ -46,14 +46,14 @@ async function loadPage() {
       </div>
     `;
   });
-  
+
   function productsListHTML(order) {
-    let productsListHTML = '';
+    let productsListHTML = "";
 
-    order.products.forEach((productDetails) => {
+    order.products?.forEach((productDetails) => {
       const product = getProduct(productDetails.productId);
-
-      productsListHTML += `
+      if (product) {
+        productsListHTML += `
         <div class="product-image-container">
           <img src="${product.image}">
         </div>
@@ -62,14 +62,16 @@ async function loadPage() {
             ${product.name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${
-              dayjs(productDetails.estimatedDeliveryTime).format('MMMM D')
-            }
+            Arriving on: ${dayjs(productDetails.estimatedDeliveryTime).format(
+              "MMMM D"
+            )}
           </div>
           <div class="product-quantity">
             Quantity: ${productDetails.quantity}
           </div>
-          <button class="buy-again-button button-primary js-buy-again-button" data-product-id = "${product.id}">
+          <button class="buy-again-button button-primary js-buy-again-button" data-product-id = "${
+            product.id
+          }">
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
@@ -82,38 +84,40 @@ async function loadPage() {
           </a>
         </div>
       `;
+      }
     });
 
     return productsListHTML;
   }
-  
-  if(document.querySelector('.js-orders-grid')){
-    document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+
+  if (document.querySelector(".js-orders-grid")) {
+    document.querySelector(".js-orders-grid").innerHTML = ordersHTML;
   }
-  if(document.querySelector('.js-cart-quantity-orders')){
-    document.querySelector('.js-cart-quantity-orders').innerHTML = updateCartQuantity();
+  if (document.querySelector(".js-cart-quantity-orders")) {
+    document.querySelector(".js-cart-quantity-orders").innerHTML =
+      updateCartQuantity();
   }
 
-  document.querySelectorAll('.js-buy-again-button').forEach((button) => {
-    button.addEventListener('click', () => {
+  document.querySelectorAll(".js-buy-again-button").forEach((button) => {
+    button.addEventListener("click", () => {
       addToCart(button.dataset.productId);
 
-      button.innerHTML = 'Added';
+      button.innerHTML = "Added";
       setTimeout(() => {
         button.innerHTML = `<img class="buy-again-icon" src="images/icons/buy-again.png">
-          <span class="buy-again-message">Buy it again</span>`;}
-        , 1000)
-      ;
-    })
+          <span class="buy-again-message">Buy it again</span>`;
+      }, 1000);
+    });
   });
 
-  if(document.querySelector('.js-search-button')){
-    document.querySelector('.js-search-button').addEventListener('click', () => {
-      const inputKeyword = document.querySelector('.js-search-input').value;
-      window.location.href = `amazon.html?inputKeyword=${inputKeyword}`;
-    });
-  } 
-  
+  if (document.querySelector(".js-search-button")) {
+    document
+      .querySelector(".js-search-button")
+      .addEventListener("click", () => {
+        const inputKeyword = document.querySelector(".js-search-input").value;
+        window.location.href = `amazon.html?inputKeyword=${inputKeyword}`;
+      });
+  }
 }
 
 loadPage();
