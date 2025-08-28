@@ -71,7 +71,7 @@ async function loadPage() {
           </div>
           <button class="buy-again-button button-primary js-buy-again-button" data-product-id = "${
             product.id
-          }">
+          }" data-product-quantity = "${productDetails.quantity}">
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
@@ -100,13 +100,20 @@ async function loadPage() {
 
   document.querySelectorAll(".js-buy-again-button").forEach((button) => {
     button.addEventListener("click", () => {
-      addToCart(button.dataset.productId);
+      //console.log(button.dataset);
+      addToCart(
+        button.dataset.productId,
+        Number(button.dataset.productQuantity)
+      );
+
+      updateCartQuantity();
 
       button.innerHTML = "Added";
       setTimeout(() => {
         button.innerHTML = `<img class="buy-again-icon" src="images/icons/buy-again.png">
           <span class="buy-again-message">Buy it again</span>`;
       }, 1000);
+      location.reload();
     });
   });
 
